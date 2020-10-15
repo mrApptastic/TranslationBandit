@@ -9,7 +9,6 @@ namespace TranslationBandit
     {
         static bool terminate = false;
         static string space = @"%"; /* Blank Spaces in Paths must be replaced with this character */
-        // C:\Workspace\Web%Share\WebBooking\src\i18n\messages.xlf C:\Workspace\Web%Share\TranslationBandit\Translations.xlsx WebBooking
 
         static void Main(string[] args)
         {
@@ -69,7 +68,13 @@ namespace TranslationBandit
 
                     if (Translations != null && Translations.Count > 0)
                     {
-                        XlfBandit.GenerateLanguageFiles(basePath, Translations);
+                        List<string> missingTrans = XlfBandit.GenerateLanguageFiles(basePath, Translations);
+
+                        if (missingTrans.Count() > 0)
+                        {
+                            // ExcelBandit.AddMissingSourceTexts(missingTrans, excelPath.Replace(space, " "), excelTab.Replace(space, " "));
+                        }
+
                         Console.WriteLine("Translations were succesfully extracted!");
                     }
                     else
